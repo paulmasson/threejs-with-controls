@@ -15,6 +15,10 @@ The steps to create this build from a [stable](https://github.com/mrdoob/three.j
 
 `export { OrbitControls } from '../examples/jsm/controls/OrbitControls.js';`
 
+* Revert the import `from 'three';` in `OrbitControls.js` to
+
+`from '../../../build/three.module.js';`
+
 * Move into the library directory with `cd three.js`
 
 * Configure the library with `npm install`
