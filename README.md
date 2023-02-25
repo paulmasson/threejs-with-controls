@@ -7,27 +7,15 @@ Vanilla [Three.js](https://github.com/mrdoob/three.js) including basic controls.
 
 The steps to create this build from a [stable](https://github.com/mrdoob/three.js/issues/20591) tagged version are
 
-* Perform a shallow clone of the desired version with
+* Edit the version number of `three` in `package.json` to indicate the desired version. These numbers are of the form `0.nnn.n`, where the last digit reflects possible modifications after the first release. Available versions can be displayed with `npm show three versions`.
 
-`git clone --depth=1 --branch r<n> --single-branch https://github.com/mrdoob/three.js.git`
+* Configure the library with `npm install`.
 
-* Add a single line to `src/Three.js` just after all other exports
+* Build the library with `npm run build`.
 
-`export { OrbitControls } from '../examples/jsm/controls/OrbitControls.js';`
+The minified file will be located in the `build` directory.
 
-* Revert the import `from 'three';` in `OrbitControls.js` to
-
-`from '../../../build/three.module.js';`
-
-* Move into the library directory with `cd three.js`
-
-* Configure the library with `npm install`
-
-* Build the library with `npm run build`
-
-The minified file will be located in the `build` directory and has been copied to the same directory here.
-
-If you need additional features, then simply add the appropriate `export` lines to `src/Three.js` and build the library yourself.
+If you need additional features, then simply add the appropriate `export` lines to `Three.js` and build the library yourself.
 
 Live examples using this build via [MathCell](https://github.com/paulmasson/mathcell):
 

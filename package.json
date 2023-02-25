@@ -1,0 +1,18 @@
+{
+  "name": "threejs-with-controls",
+  "version": "1.0.0",
+  "description": "Three.js bundled with OrbitControls",
+  "type": "module",
+  "main": "./build/three.min.js",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "author": "Paul Masson",
+  "license": "MIT",
+  "dependencies": {
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.4.0",
+    "rollup": "^3.15.0",
+    "three": "^0.149.0"
+  }
+}
