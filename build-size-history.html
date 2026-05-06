@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Build Size History</title>
+</head>
+
+<body style="margin: 1in">
+
+<p>This page displays the sizes of the build file for the latest releases.</p>
+
+<div id=output style="height: 3in; overflow: auto"></div>
+
+<p>A limited number of entries is shown to avoid the GitHub <a href="https://api.github.com/rate_limit">rate limit</a>.</p>
+
+<script>
+
+var sizes = {}, keys = [], limit = 10;
+
+var xhr = new XMLHttpRequest();
+xhr.responseType = 'text';
+
+xhr.open( 'GET', 'https://api.github.com/repos/paulmasson/threejs-with-controls/tags', true );
+
+xhr.onload = function() {
+
+  var tags = JSON.parse( xhr.response );
+  try { tags.forEach( e => sizes[e.name] = '' ); }
+  catch { output.innerHTML = '<b style="margin-left: 1in">Rate limit exceeded</b>'; return; }
+  keys = Object.keys( sizes ).sort().reverse();
+
+  var url = 'https://api.github.com/repos/paulmasson/threejs-with-controls/contents/build/three.min.js?ref=';
+  var xhrs = [], count = 0;
+
+  // set number instead of keys.length to avoid GitHub rate limit
+  for ( var i = 0 ; i < limit ; i++ ) {
+
+    xhrs[i] = new XMLHttpRequest();
+    xhrs[i].responseType = 'text';
+    xhrs[i].version = keys[i];
+
+    xhrs[i].open( 'GET', url + xhrs[i].version, true );
+
+    xhrs[i].onload = function() {
+
+      var size = JSON.parse( this.response ).size;
+      sizes[ this.version ] = Math.round( size  / 1000 ) + ' kB';
+
+      count++;
+
+      if ( count === limit ) display();
+
+    }
+
+  xhrs[i].send();
+
+  }
+
+}
+
+xhr.send();
+
+function display() {
+
+  var s = `
+<table style="margin-left: 2in; width: 3in; text-align: center">
+<tr><td><u>Version</u></td><td><u>Size of Build</u></td></tr>
+<tr><td>&nbsp;</td></tr>
+`;
+
+  for ( var i = 0 ; i < limit ; i++ ) s += `<tr><td>${ keys[i] }</td><td>${ sizes[keys[i]] }</td></tr>`;
+
+  output.innerHTML = s + '</table>';
+
+}
+
+</script>
+
+</body>
+</html>
