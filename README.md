@@ -17,7 +17,7 @@ The minified file will be located in the `build` directory.
 
 If you need additional features, then simply add the appropriate `export` lines to `Three.js` and build the library yourself.
 
-As a check on the process, one can view the recent [history](build-size-history.html) of the size of the final build file.
+As a check on the process, one can view the recent [history](https://paulmasson.github.io/build-size-history.html) of the size of the final build file.
 
 Live examples using this build via [MathCell](https://github.com/paulmasson/mathcell):
 
